@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: client
+  template:
+    metadata:
+      labels:
+        app: client
+  spec:
+      containers:
+        - name: client
+          image: youruniqueacrname.azurecr.io/client:v1 # <-- IMPORTANT: REPLACE with your ACR name
+          ports:
+            - containerPort: 80
+          env:
+            - name: REACT_APP_API_BASE_URL
+              value: http://<GATEWAY_EXTERNAL_IP> # You will replace this after gateway is deployed OR configure it to use a DNS name

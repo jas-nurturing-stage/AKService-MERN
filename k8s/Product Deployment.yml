@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: product-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: product-service
+  template:
+    metadata:
+      labels:
+        app: product-service
+  spec:
+      containers:
+        - name: product-service
+          image: youruniqueacrname.azurecr.io/product-service:v1 # <-- IMPORTANT: REPLACE with your ACR name
+          ports:
+            - containerPort: 5002
+          env:
+            - name: MONGO_URI
+              valueFrom:
+                secretKeyRef:
+                  name: mern-app-secrets
+                  key: MONGO_URI
+            - name: PORT
+              value: "5002"

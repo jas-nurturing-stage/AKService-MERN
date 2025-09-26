@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-gateway-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api-gateway
+  template:
+    metadata:
+      labels:
+        app: api-gateway
+  spec:
+      containers:
+        - name: api-gateway
+          image: youruniqueacrname.azurecr.io/api-gateway:v1 # <-- IMPORTANT: REPLACE with your ACR name
+          ports:
+            - containerPort: 5000
+          env:
+            - name: PORT
+              value: "5000"
+            - name: AUTH_API_ADDRESS
+              value: "http://auth-service:5001"
+            - name: PRODUCT_API_ADDRESS
+              value: "http://product-service:5002"
