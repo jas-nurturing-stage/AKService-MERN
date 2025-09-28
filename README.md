@@ -6,7 +6,7 @@ This project demonstrates deploying a **MERN application** (React frontend + Nod
 
 ### 📂 Project Structure
 ```
-mern-microservices-starter
+AKService-MERN
 ├── Jenkinsfile
 ├── README.md
 ├── backend
